@@ -14,7 +14,7 @@ public class CarService {
 
         CarInstanceResponseDto carInstanceResponseDto =
                 CarInstanceResponseDto.builder()
-                        .modelName("쌍용 티볼리")
+                        .model("쌍용 티볼리")
                         .rating("1.5가솔린 터보")
                         .fuel("가솔린")
                         .color("흰색")

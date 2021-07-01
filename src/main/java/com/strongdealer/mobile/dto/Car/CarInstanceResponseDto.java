@@ -9,7 +9,7 @@ import lombok.Setter;
 public class CarInstanceResponseDto {
 
     // 모델명
-    private String modelName;
+    private String model;
     // 등급
     private String rating;
     // 세부등급
@@ -29,8 +29,8 @@ public class CarInstanceResponseDto {
 
 
     @Builder
-    public CarInstanceResponseDto(String modelName, String rating, String detailRating, String gearbox, String fuel, String color, Integer modelYear, Integer initialRegistration, Integer price) {
-        this.modelName = modelName;
+    public CarInstanceResponseDto(String model, String rating, String detailRating, String gearbox, String fuel, String color, Integer modelYear, Integer initialRegistration, Integer price) {
+        this.model = model;
         this.rating = rating;
         this.detailRating = detailRating;
         this.gearbox = gearbox;
