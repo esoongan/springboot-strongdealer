@@ -21,7 +21,7 @@ public class CarController {
 
     // 차 번호로 차정보 조회 - 외부api와 연동해야함
     @GetMapping("/api/car")
-    public ResponseEntity<ApiResponse> getCarInfo(@RequestParam String carNo) {
+    public ResponseEntity<ApiResponse<CarInstanceResponseDto>> getCarInfo(@RequestParam String carNo) {
         CarInstanceResponseDto responseDto = carService.getCarInfobyCarNo(carNo);
 
 
