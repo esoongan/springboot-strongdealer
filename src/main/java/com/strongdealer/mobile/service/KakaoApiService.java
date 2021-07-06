@@ -9,6 +9,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
+import com.strongdealer.mobile.domain.User.UserRepository;
 import com.strongdealer.mobile.dto.Kakao.KakaoUserResponseDto;
 import com.strongdealer.mobile.key.RestApiKey;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,7 @@ public class KakaoApiService {
 
     // 앱 생성시 발급받은 REST API ( 노출을 막기위해 외부 class(git ignore에 추가한 클래스)에 private필드로 선언함)
     private static final String REST_API_KEY = RestApiKey.getRestApiKey();
+    private final UserRepository userRepository;
 
 
     @Transactional
@@ -99,6 +101,7 @@ public class KakaoApiService {
 
     }
 
+    // 카카오서버로 사용자정보 요청
     @Transactional
     public KakaoUserResponseDto getUserInfo(String access_token) {
         // 요청보낼 카카오 서버 url
@@ -163,5 +166,6 @@ public class KakaoApiService {
         }
         return null;
     }
+
 
 }
