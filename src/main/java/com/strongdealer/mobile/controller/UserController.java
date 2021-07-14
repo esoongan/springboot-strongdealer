@@ -19,7 +19,7 @@ public class UserController {
     private final UserService userService;
 
     // 카카오 인증후에 추가정보 받아서 회원 DB에 저장, 토큰응답
-    @PostMapping("/api/user/join")
+    @PostMapping("/api/auth/user/join")
     public ResponseEntity<ApiResponse<?>> join(@RequestBody UserRequestDto requestDto){
 
         userService.registerDone(requestDto);

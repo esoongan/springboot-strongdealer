@@ -13,7 +13,9 @@ import com.strongdealer.mobile.dto.Car.CarRequestDto;
 import com.strongdealer.mobile.dto.Car.CarResponseDto;
 import com.strongdealer.mobile.dto.Car.CarResponseDtoFromNation;
 import com.strongdealer.mobile.exception.CarNotFoundException;
+import com.strongdealer.mobile.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +27,8 @@ public class CarService {
     private final CarRepository carRepository;
     private final Car4SaleRepository car4SaleRepository;
     private final CarOptionRepository optionRepository;
+
+    private final UserService userService;
 
     // 국가api호출
     @Transactional
@@ -80,12 +84,11 @@ public class CarService {
 
     // 차량 견적신청 등록
     @Transactional
-    public CarResponseDto registerCar4Sale(CarRequestDto requestDto, String accessToken) {
+    public CarResponseDto registerCar4Sale(CarRequestDto requestDto, Authentication authentication) {
         // 정보 업데이트된 차 엔티티
         Car car = this.updateCarInfo(requestDto);
-
-        // 토큰으로부터 사용자추출
-        User user = userRepository.findById(accessToken);
+        // 토큰으로 사용자 추출
+        User user = userService.getUserByToken(authentication.getPrincipal());
 
         // 관계테이블 설정 -> 등 록
         Car4Sale car4Sale = car4SaleRepository.save(Car4Sale.builder().car(car).user(user).build());

@@ -24,7 +24,7 @@ public class KakaoApiController {
     private final UserService userService;
 
     // 클라단에서 받은 액세스토큰을 여기로 주면 받아서 새로운 JWT발급후 응답.
-    @PostMapping("/api/kakao/login")
+    @PostMapping("/api/autj/user/login")
     public ResponseEntity<ApiResponse<?>> generateJWT(@RequestHeader String accessToken) {
         log.info("액세스토큰" + accessToken);
 

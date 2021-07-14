@@ -10,6 +10,7 @@ import com.strongdealer.mobile.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -34,8 +35,8 @@ public class CarController {
 
     // 사용자로부터 확인되고 추가된 정보로 DB업데이트 + 차량 등록 (현재시간도 저장)
     @PostMapping("/api/car")
-    public ResponseEntity<ApiResponse<CarResponseDto>> registerCar4Sale(@RequestBody CarRequestDto requestDto, @RequestHeader String accessToken) {
-        CarResponseDto responseDto = carService.registerCar4Sale(requestDto, accessToken);
+    public ResponseEntity<ApiResponse<CarResponseDto>> registerCar4Sale(@RequestBody CarRequestDto requestDto, Authentication authentication) {
+        CarResponseDto responseDto = carService.registerCar4Sale(requestDto, authentication);
 
         return new ResponseEntity<>(
                 ApiResponse.response(
