@@ -34,7 +34,7 @@ public class CarResponseDto {
     // 연식
     private Integer modelYear;
     // 주행거리
-    //private Integer mileage;
+    private Integer mileage;
     // 출고가
     private Integer price;
     // 최초등록일
@@ -53,7 +53,7 @@ public class CarResponseDto {
         this.fuel = car.getFuel();
         this.color = car.getColor();
         this.modelYear = car.getModelYear();
-        //this.mileage = car.getMileage();
+        this.mileage = car.getMileage();
         this.price = car.getPrice();
         this.initialRegistration = car.getInitialRegistration();
     }

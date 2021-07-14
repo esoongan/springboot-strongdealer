@@ -1,6 +1,7 @@
 package com.strongdealer.mobile.domain.Car.CarInfo;
 
-import com.strongdealer.mobile.domain.Car.Option.Option;
+import com.strongdealer.mobile.domain.Car.CarOption.CarOption;
+import com.strongdealer.mobile.dto.Car.CarRequestDto;
 import com.strongdealer.mobile.dto.Car.CarResponseDtoFromNation;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,7 +22,7 @@ public class Car {
     // 옵션
     @OneToOne
     @JoinColumn(name = "option_id")
-    private Option option;
+    private CarOption carOption;
 
     // 차번호
     private String carNo;
@@ -51,6 +52,9 @@ public class Car {
     private Integer price;
     // 최초등록일
     private Integer initialRegistration;
+    // 사고이력
+    // 소유
+    // 기타이력
 
     // 국가로부터 데이터 받아서 저장하는 엔티티 만드는 생성자
     @Builder
@@ -72,9 +76,27 @@ public class Car {
     }
 
     // 사용자로부터 추가정보와 옵션여부 받아서 업데이트
-    public void update(CarResponseDtoFromNation requestDto, Option option) {
-        this.option = option;
+    public Car update(CarRequestDto requestDto) {
+        this.manufacturer = requestDto.getManufacturer();
+        this.type = requestDto.getType();
+        this.model = requestDto.getModel();
+        this.detailModel = requestDto.getDetailModel();
+        this.rating = requestDto.getRating();
+        this.detailRating = requestDto.getDetailRating();
+        this.gearbox = requestDto.getGearbox();
+        this.fuel = requestDto.getFuel();
+        this.color = requestDto.getColor();
+        this.modelYear = requestDto.getModelYear();
+        this.mileage = requestDto.getMileage();
+
+        return this;
     }
+
+    public void updateOption(CarOption option) {
+        this.carOption = option;
+    }
+
+
 
 
 }

@@ -3,7 +3,11 @@ package com.strongdealer.mobile.dto.File;
 import com.strongdealer.mobile.domain.Car.CarInfo.Car;
 import com.strongdealer.mobile.domain.File.File;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class FileRequestDto {
 
     private Car car;

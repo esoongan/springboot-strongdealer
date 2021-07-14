@@ -1,6 +1,6 @@
-package com.strongdealer.mobile.domain.Car.Option;
+package com.strongdealer.mobile.domain.Car.CarOption;
 
-import com.strongdealer.mobile.dto.Car.Option.OptionRequestDto;
+import com.strongdealer.mobile.dto.Car.CarOption.CarOptionRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +12,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Option {
+public class CarOption {
 
     @Id
     @Column(name = "car_id")
@@ -31,7 +31,7 @@ public class Option {
     private String etc;
 
     @Builder
-    public Option(Long carId, OptionRequestDto requestDto){
+    public CarOption(Long carId, CarOptionRequestDto requestDto){
         this.id = carId;
         this.sunLoop = requestDto.getSunLoop();
         this.hid = requestDto.getHid();
