@@ -1,6 +1,7 @@
 package com.strongdealer.mobile.controller;
 
 import com.strongdealer.mobile.dto.Car.CarInstanceResponseDto;
+import com.strongdealer.mobile.dto.Car.CarResponseDto;
 import com.strongdealer.mobile.model.ApiResponse;
 import com.strongdealer.mobile.model.HttpResponseMessage;
 import com.strongdealer.mobile.model.HttpStatusCode;
@@ -21,9 +22,8 @@ public class CarController {
 
     // 차 번호로 차정보 조회 - 외부api와 연동해야함
     @GetMapping("/api/car")
-    public ResponseEntity<ApiResponse<CarInstanceResponseDto>> getCarInfo(@RequestParam String carNo) {
-        CarInstanceResponseDto responseDto = carService.getCarInfobyCarNo(carNo);
-
+    public ResponseEntity<ApiResponse<CarResponseDto>> getCarInfo(@RequestParam String carNo) {
+        CarResponseDto responseDto = carService.getCarInfobyCarNo(carNo);
 
         return new ResponseEntity<>(
                 ApiResponse.response(
@@ -33,4 +33,5 @@ public class CarController {
         );
 
     }
+
 }

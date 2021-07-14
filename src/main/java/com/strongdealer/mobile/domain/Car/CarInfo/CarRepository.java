@@ -1,4 +1,4 @@
-package com.strongdealer.mobile.domain.Car;
+package com.strongdealer.mobile.domain.Car.CarInfo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

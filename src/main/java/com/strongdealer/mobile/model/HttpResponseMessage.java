@@ -2,6 +2,7 @@ package com.strongdealer.mobile.model;
 
 public class HttpResponseMessage {
     public static final String GET_SUCCESS = "조회성공";
+    public static final String NO_CONTENT = "데이터가 존재하지 않습니다.";
     public static final String LOGIN_SUCCESS = "로그인 성공";
     public static final String LOGIN_FAIL = "로그인 실패";
     public static final String READ_USER = "회원 정보 조회 성공";

@@ -15,7 +15,14 @@ public class ApiExceptionHandler {
     public ResponseEntity<ApiResponse<?>> handleException(UserNotFoundException exception) {
         return new ResponseEntity<>(ApiResponse.response(
                 HttpStatusCode.NOT_FOUND,
-                HttpResponseMessage.NOT_FOUND_USER), HttpStatus.BAD_REQUEST
+                "No Such User in DB"), HttpStatus.BAD_REQUEST
+        );
+    }
+    @ExceptionHandler(CarNotFoundException.class)
+    public ResponseEntity<ApiResponse<?>> handleException(CarNotFoundException exception) {
+        return new ResponseEntity<>(ApiResponse.response(
+                HttpStatusCode.NOT_FOUND,
+                "No Such Car in DB"), HttpStatus.BAD_REQUEST
         );
     }
 }

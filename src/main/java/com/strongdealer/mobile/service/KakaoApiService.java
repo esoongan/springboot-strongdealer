@@ -116,14 +116,15 @@ public class KakaoApiService {
             // 요청 엔티티 객체 생성
             HttpEntity<?> entity = new HttpEntity<>(headers);
 
-            // TODO: autowired로 수정하기
             RestTemplate restTemplate = new RestTemplate();
             // 순서대로 url, method, requestEntity, reponseType(클래스), uriVariables
             ResponseEntity<String> resultMap = restTemplate.exchange(requestURL, HttpMethod.POST, entity, String.class);
 
-            log.info("사용자 정보 추출 성공");
 
             String jsonString = resultMap.getBody();
+
+            log.info("사용자 정보 추출 성공"+ jsonString);
+
 
 //            JsonReader reader = new JsonReader(new StringReader(jsonString));
 //            reader.setLenient(true);
@@ -137,14 +138,14 @@ public class KakaoApiService {
             String thumbnail_image = properties.get("thumbnail_image").getAsString();
             JsonObject kakao_account = object.get("kakao_account").getAsJsonObject();
             String email = kakao_account.get("email").getAsString();
-            String gender = kakao_account.get("gender").getAsString();
+            //String gender = kakao_account.get("gender").getAsString();
 
             KakaoUserResponseDto responseDto = KakaoUserResponseDto.builder()
                     .id(id)
                     .profile_image(profile_image)
                     .thumbnail_image(thumbnail_image)
                     .email(email)
-                    .gender(gender)
+                    //.gender(gender)
                     .build();
 
             return responseDto;
