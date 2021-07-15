@@ -12,17 +12,18 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ApiExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ApiResponse<?>> handleException(UserNotFoundException exception) {
+    public ResponseEntity<ApiResponse<?>> handleException(UserNotFoundException e) {
         return new ResponseEntity<>(ApiResponse.response(
                 HttpStatusCode.NOT_FOUND,
-                "No Such User in DB"), HttpStatus.BAD_REQUEST
+                e.getId()+ " No Such User in DB"), HttpStatus.BAD_REQUEST
         );
     }
     @ExceptionHandler(CarNotFoundException.class)
-    public ResponseEntity<ApiResponse<?>> handleException(CarNotFoundException exception) {
+    public ResponseEntity<ApiResponse<?>> handleException(CarNotFoundException e) {
+
         return new ResponseEntity<>(ApiResponse.response(
                 HttpStatusCode.NOT_FOUND,
-                "No Such Car in DB"), HttpStatus.BAD_REQUEST
+                e.getId()+" No Such Car in DB"), HttpStatus.BAD_REQUEST
         );
     }
 }
