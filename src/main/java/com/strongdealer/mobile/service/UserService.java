@@ -53,6 +53,7 @@ public class UserService {
     public Boolean is_need_register(Long id) {
         return userRepository.existsById(id);
     }
+    
 
     @Transactional
     // 토큰으로부터 유저엔티티 조회

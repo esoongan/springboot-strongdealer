@@ -18,6 +18,7 @@ public class ApiExceptionHandler {
                 e.getId()+ " No Such User in DB"), HttpStatus.BAD_REQUEST
         );
     }
+
     @ExceptionHandler(CarNotFoundException.class)
     public ResponseEntity<ApiResponse<?>> handleException(CarNotFoundException e) {
 
