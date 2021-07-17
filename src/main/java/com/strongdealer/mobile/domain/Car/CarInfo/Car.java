@@ -1,7 +1,7 @@
 package com.strongdealer.mobile.domain.Car.CarInfo;
 
 import com.strongdealer.mobile.domain.Car.CarOption.CarOption;
-import com.strongdealer.mobile.dto.Car.CarRequestDto;
+import com.strongdealer.mobile.dto.Car.CarUpdateRequestDto;
 import com.strongdealer.mobile.dto.Car.CarResponseDtoFromNation;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,8 +53,11 @@ public class Car {
     // 최초등록일
     private Integer initialRegistration;
     // 사고이력
+    private String history; // TODO - enum으로 수정
     // 소유
+    private String owner;
     // 기타이력
+    private String historyEtc; // TODO - enum으로 수정
 
     // 국가로부터 데이터 받아서 저장하는 엔티티 만드는 생성자
     @Builder
@@ -76,18 +79,21 @@ public class Car {
     }
 
     // 사용자로부터 추가정보와 옵션여부 받아서 업데이트
-    public Car update(CarRequestDto requestDto) {
-        this.manufacturer = requestDto.getManufacturer();
-        this.type = requestDto.getType();
-        this.model = requestDto.getModel();
-        this.detailModel = requestDto.getDetailModel();
-        this.rating = requestDto.getRating();
-        this.detailRating = requestDto.getDetailRating();
-        this.gearbox = requestDto.getGearbox();
-        this.fuel = requestDto.getFuel();
-        this.color = requestDto.getColor();
-        this.modelYear = requestDto.getModelYear();
-        this.mileage = requestDto.getMileage();
+    public Car update(CarUpdateRequestDto updateRequestDto) {
+        this.manufacturer = updateRequestDto.getManufacturer();
+        this.type = updateRequestDto.getType();
+        this.model = updateRequestDto.getModel();
+        this.detailModel = updateRequestDto.getDetailModel();
+        this.rating = updateRequestDto.getRating();
+        this.detailRating = updateRequestDto.getDetailRating();
+        this.gearbox = updateRequestDto.getGearbox();
+        this.fuel = updateRequestDto.getFuel();
+        this.color = updateRequestDto.getColor();
+        this.modelYear = updateRequestDto.getModelYear();
+        this.mileage = updateRequestDto.getMileage();
+        this.history = updateRequestDto.getHistory();
+        this.owner = updateRequestDto.getOwner();
+        this.historyEtc = updateRequestDto.getHistoryEtc();
 
         return this;
     }

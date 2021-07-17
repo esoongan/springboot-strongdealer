@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 // JUnit프레임워크가 내장된 Runner를 실행할때 @RunWith어노테이션을 통해 SpringRunner.class라는 확장된 클래스를 실행하라고 지시한것
 @RunWith(SpringRunner.class)
 //스프링 부트 어플리케이션 테스트 시 테스트에 필요한 거의 모든 의존성을 제공하는 어노테이션이다.
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // 가짜 컨테이너 실행
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK) // 가짜 컨테이너 실행
 // Mock 테스트시 필요한 의존성을 제공해준다. ( 실제 컨테이너가 실행되는것은 아니지만 로직상 테스트 실행가능)
 //@AutoConfigureMockMvc
 public class JwtTokenProviderTest {

@@ -8,7 +8,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-public class CarRequestDto {
+public class CarUpdateRequestDto {
 
     // DB에 저장된 PK
     private Long id;
@@ -35,10 +35,9 @@ public class CarRequestDto {
     // 주행거리
     private Integer mileage;
     // 사고이력
+    private String history;
     // 명의
+    private String owner;
     // 기타이력
-
-
-
-
+    private String historyEtc;
 }

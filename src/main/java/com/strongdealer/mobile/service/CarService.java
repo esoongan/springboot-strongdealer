@@ -9,11 +9,10 @@ import com.strongdealer.mobile.domain.Car.CarOption.CarOptionRepository;
 import com.strongdealer.mobile.domain.User.User;
 import com.strongdealer.mobile.domain.User.UserRepository;
 import com.strongdealer.mobile.dto.Car.CarOption.CarOptionRequestDto;
-import com.strongdealer.mobile.dto.Car.CarRequestDto;
+import com.strongdealer.mobile.dto.Car.CarUpdateRequestDto;
 import com.strongdealer.mobile.dto.Car.CarResponseDto;
 import com.strongdealer.mobile.dto.Car.CarResponseDtoFromNation;
 import com.strongdealer.mobile.exception.CarNotFoundException;
-import com.strongdealer.mobile.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -30,18 +29,22 @@ public class CarService {
 
     private final UserService userService;
 
-    // 국가api호출
+    // 차번호로 정보조회
     @Transactional
-    public CarResponseDto getCarInfobyCarNo(String carNo, String accessToken) {
-        // 1. 우리 DB에 해당 차번호가 저장되어있는지 찾고 없으면 국가 API호출
+    public CarResponseDto getCarInfobyCarNo(String carNo) {
 
+        // 1. 우리 DB에 해당 차번호가 저장되어있는지 찾고 없으면 국가 API호출하여 Car엔티티 반환
+        Car car = carRepository.findByCarNo(carNo)
+                .orElseGet(() -> getCarInfoFromNationApi(carNo));
 
+        return new CarResponseDto(car);
+    }
 
-
-        // api호출 -> 응답 받아온다.
-        // 받아온 응답 파싱해서 DB에 선저장 -> responseDto로 리턴
-
+    // DB에 존재하지 않는 차 번호에 대해 국가api 조회하고 DB에 저장한후 저장한 Car엔티티를 리턴
+    @Transactional
+    public Car getCarInfoFromNationApi(String carNo) {
         // 국가로부터 받아왔다 치고
+        // responseDto에 받아온 값 셋팅하고
         CarResponseDtoFromNation responseDto =
                 CarResponseDtoFromNation.builder()
                         .carNo(carNo)
@@ -59,32 +62,22 @@ public class CarService {
                         .price(2000)
                         .initialRegistration(2020)
                         .build();
-
-        // 응답받은 차 정보 DB에 저장 -> 한번 조회한 차에 대해서는 더이상 조회하지 않아도 됨
-        Car car = carRepository.save(responseDto.toEntity());
-
-
-
-
-
-        return new CarResponseDto(car);
-
+        return carRepository.save(responseDto.toEntity());
     }
 
     // 사용자로부터 확인후, 변할건 변하고 다시 요청받아서 디비에 업뎃
     @Transactional
-    public Car updateCarInfo(CarRequestDto requestDto) {
+    public Car updateCarInfo(CarUpdateRequestDto requestDto) {
 
         Car car = carRepository.findById(requestDto.getId())
                 .orElseThrow(() -> new CarNotFoundException(requestDto.getId()));
 
-        return car;
-
+        return car.update(requestDto);
     }
 
     // 차량 견적신청 등록
     @Transactional
-    public CarResponseDto registerCar4Sale(CarRequestDto requestDto, Authentication authentication) {
+    public CarResponseDto registerCar4Sale(CarUpdateRequestDto requestDto, Authentication authentication) {
         // 정보 업데이트된 차 엔티티
         Car car = this.updateCarInfo(requestDto);
         // 토큰으로 사용자 추출

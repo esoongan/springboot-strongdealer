@@ -1,7 +1,7 @@
 package com.strongdealer.mobile.controller;
 
 import com.strongdealer.mobile.dto.Car.CarOption.CarOptionRequestDto;
-import com.strongdealer.mobile.dto.Car.CarRequestDto;
+import com.strongdealer.mobile.dto.Car.CarUpdateRequestDto;
 import com.strongdealer.mobile.dto.Car.CarResponseDto;
 import com.strongdealer.mobile.model.ApiResponse;
 import com.strongdealer.mobile.model.HttpResponseMessage;
@@ -21,8 +21,8 @@ public class CarController {
 
     // 차 번호로 차정보 조회 - 외부api와 연동해야함
     @GetMapping("/api/car")
-    public ResponseEntity<ApiResponse<CarResponseDto>> getCarInfo(@RequestParam String carNo, @RequestHeader String accessToken) {
-        CarResponseDto responseDto = carService.getCarInfobyCarNo(carNo, accessToken);
+    public ResponseEntity<ApiResponse<CarResponseDto>> getCarInfo(@RequestParam String carNo) {
+        CarResponseDto responseDto = carService.getCarInfobyCarNo(carNo);
 
         return new ResponseEntity<>(
                 ApiResponse.response(
@@ -35,7 +35,7 @@ public class CarController {
 
     // 사용자로부터 확인되고 추가된 정보로 DB업데이트 + 차량 등록 (현재시간도 저장)
     @PostMapping("/api/car")
-    public ResponseEntity<ApiResponse<CarResponseDto>> registerCar4Sale(@RequestBody CarRequestDto requestDto, Authentication authentication) {
+    public ResponseEntity<ApiResponse<CarResponseDto>> registerCar4Sale(@RequestBody CarUpdateRequestDto requestDto, Authentication authentication) {
         CarResponseDto responseDto = carService.registerCar4Sale(requestDto, authentication);
 
         return new ResponseEntity<>(

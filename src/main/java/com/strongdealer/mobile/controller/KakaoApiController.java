@@ -2,6 +2,7 @@ package com.strongdealer.mobile.controller;
 
 import com.strongdealer.mobile.dto.Kakao.KakaoUserResponseDto;
 import com.strongdealer.mobile.dto.User.UserResponseTempDto;
+import com.strongdealer.mobile.jwt.JwtTokenProvider;
 import com.strongdealer.mobile.model.ApiResponse;
 import com.strongdealer.mobile.model.HttpResponseMessage;
 import com.strongdealer.mobile.model.HttpStatusCode;
@@ -20,9 +21,10 @@ public class KakaoApiController {
 
     private final KakaoApiService kakaoApiService;
     private final UserService userService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     // 클라단에서 받은 액세스토큰을 여기로 주면 받아서 새로운 JWT발급후 응답.
-    @PostMapping("/api/autj/user/login")
+    @PostMapping("/api/auth/user/login")
     public ResponseEntity<ApiResponse<?>> generateJWT(@RequestHeader String accessToken) {
         log.info("액세스토큰" + accessToken);
 
@@ -32,7 +34,7 @@ public class KakaoApiController {
         // 1. 기존 회원인지 확인후
         if(userService.is_need_register(userResponseDto.getId())){
             // 기존이면 우리서버의 토큰발급
-            String token = "123123";
+            String token = jwtTokenProvider.createToken("seungjin");
             return new ResponseEntity<>(ApiResponse.response(
                     HttpStatusCode.OK,
                     HttpResponseMessage.LOGIN_SUCCESS,
