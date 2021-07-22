@@ -3,6 +3,7 @@ package com.strongdealer.mobile.controller;
 import com.strongdealer.mobile.domain.User.User;
 import com.strongdealer.mobile.dto.User.UserRequestDto;
 import com.strongdealer.mobile.dto.User.UserResponseDto;
+import com.strongdealer.mobile.jwt.JwtTokenProvider;
 import com.strongdealer.mobile.model.ApiResponse;
 import com.strongdealer.mobile.model.HttpResponseMessage;
 import com.strongdealer.mobile.model.HttpStatusCode;
@@ -21,28 +22,28 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     // 카카오 인증후에 추가정보 받아서 회원 DB에 저장, 토큰응답
     @PostMapping("/api/auth/user/join")
     public ResponseEntity<ApiResponse<?>> join(@RequestBody UserRequestDto requestDto){
 
-        userService.registerDone(requestDto);
+        User user = userService.registerDone(requestDto);
 
-        String token = "123";
+        // 토큰 생성
+        String token = jwtTokenProvider.createToken(user.getUsername());
 
         return new ResponseEntity<>(ApiResponse.response(
                 HttpStatusCode.OK,
                 HttpResponseMessage.CREATED_USER,
                 token), HttpStatus.OK
-
         );
-
     }
 
-
     // 사용자 정보조회
-    @GetMapping
+    @GetMapping("/api/user")
     public ResponseEntity<ApiResponse<UserResponseDto>> getUserInfo(Authentication authentication) {
+
         User user = userService.getUserByToken(authentication.getPrincipal());
 
         return new ResponseEntity<>(ApiResponse.response(
@@ -52,6 +53,4 @@ public class UserController {
         );
 
     }
-
-
 }

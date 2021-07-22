@@ -50,11 +50,13 @@ public class User implements UserDetails {
 
     }
 
-    public void update(UserRequestDto requestDto) {
+    public User update(UserRequestDto requestDto) {
         this.realName = requestDto.getRealName();
         this.username = requestDto.getUserName();
         this.phoneNumber = requestDto.getPhoneNumber();
         this.birth = requestDto.getBirth();
+
+        return this;
     }
 
     @Override

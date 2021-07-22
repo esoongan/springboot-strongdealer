@@ -8,6 +8,7 @@ import com.strongdealer.mobile.domain.Car.CarOption.CarOption;
 import com.strongdealer.mobile.domain.Car.CarOption.CarOptionRepository;
 import com.strongdealer.mobile.domain.User.User;
 import com.strongdealer.mobile.domain.User.UserRepository;
+import com.strongdealer.mobile.dto.Car.Car4Sale.Car4SaleResponseDto;
 import com.strongdealer.mobile.dto.Car.CarOption.CarOptionRequestDto;
 import com.strongdealer.mobile.dto.Car.CarUpdateRequestDto;
 import com.strongdealer.mobile.dto.Car.CarResponseDto;
@@ -77,7 +78,7 @@ public class CarService {
 
     // 차량 견적신청 등록
     @Transactional
-    public CarResponseDto registerCar4Sale(CarUpdateRequestDto requestDto, Authentication authentication) {
+    public Car4SaleResponseDto registerCar4Sale(CarUpdateRequestDto requestDto, Authentication authentication) {
         // 정보 업데이트된 차 엔티티
         Car car = this.updateCarInfo(requestDto);
         // 토큰으로 사용자 추출
@@ -86,7 +87,7 @@ public class CarService {
         // 관계테이블 설정 -> 등 록
         Car4Sale car4Sale = car4SaleRepository.save(Car4Sale.builder().car(car).user(user).build());
 
-        return new CarResponseDto(car4Sale.getCar());
+        return new Car4SaleResponseDto(car4Sale);
 
     }
 

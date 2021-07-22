@@ -38,13 +38,13 @@ public class UserService {
     }
 
     @Transactional
-    public void registerDone(UserRequestDto requestDto) {
+    public User registerDone(UserRequestDto requestDto) {
         Long id = requestDto.getId();
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
         log.info("사용자추출성공", user.getEmail());
 
-        user.update(requestDto);
+        return user.update(requestDto);
 
     }
 
