@@ -85,6 +85,7 @@ public class CarService {
         User user = userService.getUserByToken(authentication.getPrincipal());
 
         // 관계테이블 설정 -> 등 록
+        // TODO 이미 있는 차량이면 중복등록 하지 않도록 바꿔야함
         Car4Sale car4Sale = car4SaleRepository.save(Car4Sale.builder().car(car).user(user).build());
 
         return new Car4SaleResponseDto(car4Sale);

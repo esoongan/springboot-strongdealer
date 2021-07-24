@@ -48,7 +48,11 @@ public class FileService {
 
         // 여기다가 저장할것임!!!
         // 앞에 /home/ubuntu붙여야햐나..
-        String path = "/etc/nginx/images";
+
+        // local_path
+        String path = "/usr/local/etc/nginx/images";
+        // ec2_path
+        //String path = "/etc/nginx/images";
 
         // 파일 개수만큼 forEach실행
         for (MultipartFile file : files) {
@@ -74,10 +78,14 @@ public class FileService {
                         .filepath(path)
                         .build();
 
+
                 // Dto객체 -> entity로 변환후 저장 -> 저장된 엔티티로 생성된 id값을 포함하는 reponseDto를 리턴
                 File entity = fileRepository.save(fileRequestDto.toEntity());
                 FileResponseDto responseDto = new FileResponseDto(entity);
 
+                log.info("File save complete...");
+                log.info(entity.getFilepath());
+                log.info(entity.getFilename());
                 // 파일 정보 추가
                 attachList.add(responseDto);
 
